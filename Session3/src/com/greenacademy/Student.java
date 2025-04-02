@@ -10,6 +10,8 @@ public class Student {
     private String email;
     private String phone;
     private String address;
+    private static String school = "GreenAcademy";
+
     // Alt + Insert để generate code (constructor,getter, setter,...)
     // <editor-fold> Constructor hàm dùng để khởi tạo đối tượng
     public Student() {
@@ -86,6 +88,7 @@ public class Student {
     // Các methods hành vi khác của đối tượng
     public void hello() {
         System.out.println("Xin chào các bạn! Tôi tên là " + this.name + "!");
+        System.out.println("Tôi đang học tại " + school);
     }
     public void input(Scanner sc) {
         System.out.print("Nhập mã sinh viên: ");
@@ -111,5 +114,11 @@ public class Student {
         System.out.println("SĐT: " + this.phone);
         System.out.println("Địa chỉ: " + this.address);
         System.out.println("======");
+    }
+    public static String getSchool() {
+        return school;
+    }
+    public static String setSchool(String school) {
+        return Student.school = school;
     }
 }
