@@ -66,4 +66,8 @@ public class Student {
         this.mysql = mysql;
     }
     // </editor-fold>
+
+    public double getAvg() {
+        return (this.html + this.reactjs + this.mysql) / 3;
+    }
 }

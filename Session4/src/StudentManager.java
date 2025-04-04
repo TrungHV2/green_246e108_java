@@ -10,5 +10,11 @@ public class StudentManager {
          * 6. Xóa sinh viên
          * 0. Thoát
          */
+
+        Student[] studentsSorted = new Student[10];
+        for (int i = 0; i < studentsSorted.length; i++) {
+            System.out.println("Id: " + studentsSorted[i].getId());
+            System.out.println("Avg: " + studentsSorted[i].getAvg());
+        }
     }
 }

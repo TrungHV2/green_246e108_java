@@ -1,5 +1,6 @@
 public class StudentService {
     private Student[] students;
+    private int index;
 
     // Constructor
 
@@ -51,6 +52,17 @@ public class StudentService {
      * @return trả về mảng {@link Student} đã được sắp xếp
      */
     public Student[] sortByAvgScoreDesc() {
+        for (int i = 0; i < this.students.length; i++) {
+            for (int j = i+1; j < this.students.length - 1; j++) {
+                double avgI = students[i].getAvg();
+                double avgJ = students[j].getAvg();
+                if (avgI < avgJ) {
+                    Student temp = students[i];
+                    students[i] = students[j];
+                    students[j] = temp;
+                }
+            }
+        }
         return null;
     }
 }
