@@ -4,23 +4,22 @@ import com.greenacademy.example.model.Category;
 import com.greenacademy.example.service.CategoryService;
 
 import java.util.Arrays;
-
+// Singleton Pattern
 public class CategoryServiceImpl implements CategoryService {
-    private Category[] categories;
-    private int index = 0;
+    private static Category[] categories = new Category[10];
+    private static int index = 0;
 
     public CategoryServiceImpl() {
-        this.categories = new Category[10];
     }
 
     @Override
     public Category[] findAll() {
-        return Arrays.copyOf(this.categories, this.index);
+        return Arrays.copyOf(categories, index);
     }
 
     @Override
     public Category findById(int id) {
-        for (int i = 0; i < this.index; i++) {
+        for (int i = 0; i < index; i++) {
             if (categories[i].getId() == id) {
                 return categories[i];
             }
@@ -30,10 +29,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category add(Category category) {
-        if (this.index >= this.categories.length) {
+        if (index >= categories.length) {
             resize();
         }
-        this.categories[this.index++] = category;
+        categories[index++] = category;
         return category;
     }
 
@@ -48,7 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category delete(int id) {
         int findIndex = -1;
         Category delete = null;
-        for (int i = 0; i < this.index; i++) {
+        for (int i = 0; i < index; i++) {
             if (categories[i].getId() == id) {
                 findIndex = i;
                 delete = categories[i];
@@ -56,14 +55,14 @@ public class CategoryServiceImpl implements CategoryService {
             }
         }
         if (findIndex != -1) {
-            this.index--;
-            System.arraycopy(this.categories, findIndex + 1, this.categories, findIndex, this.index - findIndex);
-            this.categories[this.index + 1] = null;
+            index--;
+            System.arraycopy(categories, findIndex + 1, categories, findIndex, index - findIndex);
+            categories[index + 1] = null;
         }
         return delete;
     }
 
     private void resize() {
-        this.categories = Arrays.copyOf(this.categories, this.categories.length + 10);
+        categories = Arrays.copyOf(categories, categories.length + 10);
     }
 }

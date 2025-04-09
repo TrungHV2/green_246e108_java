@@ -1,17 +1,23 @@
 package com.greenacademy.example;
 
 import com.greenacademy.example.model.Category;
+import com.greenacademy.example.model.Product;
 import com.greenacademy.example.service.CategoryService;
+import com.greenacademy.example.service.ProductService;
 import com.greenacademy.example.service.impl.CategoryServiceImpl;
+import com.greenacademy.example.service.impl.ProductServiceImpl;
 
 import java.util.Scanner;
 
 public class Application {
     static CategoryService categoryService;
+    static ProductService productService;
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         categoryService = new CategoryServiceImpl();
+        productService = new ProductServiceImpl();
         while (true) {
             System.out.println("______SHOP______");
             System.out.println("1. Quản lý danh mục");
@@ -98,6 +104,9 @@ public class Application {
             int choice = Integer.parseInt(sc.nextLine());
             switch (choice) {
                 case 1:
+                    Product product = new Product();
+                    product.input(sc);
+                    productService.add(product);
                     break;
                 case 2:
                     break;

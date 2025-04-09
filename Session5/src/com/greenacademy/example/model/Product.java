@@ -1,5 +1,8 @@
 package com.greenacademy.example.model;
 
+import com.greenacademy.example.service.CategoryService;
+import com.greenacademy.example.service.impl.CategoryServiceImpl;
+
 import java.util.Scanner;
 
 public class Product implements BaseEntity {
@@ -35,7 +38,19 @@ public class Product implements BaseEntity {
 
     @Override
     public void input(Scanner scanner) {
-
+        System.out.print("Id: ");
+        id = scanner.nextLine();
+        do {
+            System.out.print("Mã danh mục: ");
+            int categoryId = Integer.parseInt(scanner.nextLine());
+            CategoryService _catService = new CategoryServiceImpl();
+            Category _category = _catService.findById(categoryId);
+            if (_category != null) {
+                this.category = _category;
+                break;
+            }
+            System.out.println("Mã danh mục không tồn tại! Vui lòng nhập lại!");
+        } while (true);
     }
 
     @Override
