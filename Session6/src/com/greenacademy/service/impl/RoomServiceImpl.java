@@ -48,6 +48,14 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public boolean roomNumberExists(String roomNumber) {
+        for (int i = 0; i < index; i++)
+            if (rooms[i].getRoomNumber().equals(roomNumber))
+                return true;
+        return false;
+    }
+
+    @Override
     public void save(Room room) {
         if (index == rooms.length)
             rooms = Arrays.copyOf(rooms, rooms.length + 10);

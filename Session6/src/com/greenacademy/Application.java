@@ -7,10 +7,8 @@ import com.greenacademy.service.RoomService;
 import com.greenacademy.service.impl.BookingServiceImpl;
 import com.greenacademy.service.impl.RoomServiceImpl;
 
-import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Scanner;
 
 public class Application {
@@ -105,8 +103,15 @@ public class Application {
                     Room room = new Room();
                     System.out.print("Mã phòng: ");
                     room.setRoomId(Integer.parseInt(sc.nextLine()));
-                    System.out.print("Số phòng: ");
-                    room.setRoomNumber(sc.nextLine());
+                    while (true) {
+                        System.out.print("Số phòng: ");
+                        room.setRoomNumber(sc.nextLine());
+                        if (roomService.roomNumberExists(room.getRoomNumber())) {
+                            System.out.println("Số phòng đã tồn tại!");
+                        } else {
+                            break;
+                        }
+                    }
                     System.out.print("Loại phòng: ");
                     room.setRoomType(sc.nextLine());
                     System.out.print("Giá phòng: ");
@@ -181,10 +186,17 @@ public class Application {
                     System.out.print("Số điện thoại: ");
                     booking.setPhoneNumber(sc.nextLine());
                     try {
-                        System.out.print("Ngày đến: ");
-                        booking.setStartDate(dateFormat.parse(sc.nextLine()));
-                        System.out.print("Ngày đi: ");
-                        booking.setEndDate(dateFormat.parse(sc.nextLine()));
+                        while (true) {
+                            System.out.print("Ngày đến: ");
+                            booking.setStartDate(dateFormat.parse(sc.nextLine()));
+                            System.out.print("Ngày đi: ");
+                            booking.setEndDate(dateFormat.parse(sc.nextLine()));
+                            if (bookingService.validateDate(booking.getRoomId(), booking.getStartDate(), booking.getEndDate())) {
+                                System.out.println("Phòng đã được đặt");
+                            } else {
+                                break;
+                            }
+                        }
                     } catch (ParseException e) {
                         throw new RuntimeException(e);
                     }

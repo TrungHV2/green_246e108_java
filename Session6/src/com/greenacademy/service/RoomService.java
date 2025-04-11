@@ -6,6 +6,7 @@ public interface RoomService {
     Room[] findAll();
     Room[] findByPrice(double fromPrice, double toPrice);
     Room findById(int id);
+    boolean roomNumberExists(String roomNumber);
     void save(Room room);
     void edit(Room room);
     void delete(int id);

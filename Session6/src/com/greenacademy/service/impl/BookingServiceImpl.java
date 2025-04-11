@@ -4,6 +4,7 @@ import com.greenacademy.model.Booking;
 import com.greenacademy.service.BookingService;
 
 import java.util.Arrays;
+import java.util.Date;
 
 public class BookingServiceImpl implements BookingService {
     private static BookingServiceImpl instance;
@@ -31,6 +32,25 @@ public class BookingServiceImpl implements BookingService {
             if (bookings[i].getBookId().equals(id))
                 return bookings[i];
         return null;
+    }
+
+    @Override
+    public boolean bookIdExists(String id) {
+        for (int i = 0; i < index; i++)
+            if (bookings[i].getBookId().equals(id))
+                return true;
+        return false;
+    }
+
+    @Override
+    public boolean validateDate(int roomId, Date from, Date to) {
+        for (int i = 0; i < index; i++)
+            if (bookings[i].getRoomId() == roomId && (
+                (bookings[i].getStartDate().after(from) && bookings[i].getStartDate().before(to)) ||
+                (bookings[i].getEndDate().after(from) && bookings[i].getEndDate().before(to))
+            ))
+                return true;
+        return false;
     }
 
     @Override
