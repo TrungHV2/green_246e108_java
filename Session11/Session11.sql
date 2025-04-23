@@ -7,12 +7,12 @@ use Shop;
 -- Tạo bảng
 create table KHACHHANG (
 	MAKH varchar(36) primary key,
-    HOTEN varchar(100),
+    HOTEN varchar(100) not null,
     DCHI varchar(255),
     SODT varchar(20),
     NGSINH date,
-    DOANHSO decimal(15,2),
-    NGDK date
+    DOANHSO decimal(15,2) check (DOANHSO >= 0),
+    NGDK date default (current_date)
 );
 create table NHANVIEN(
 	MANV varchar(36),
@@ -23,7 +23,7 @@ create table NHANVIEN(
 );
 create table SANPHAM (
 	MASP varchar(36) primary key,
-    TENSP varchar(512),
+    TENSP varchar(512) unique not null,
     DVT varchar(50),
     NUOCSX varchar(100),
     GIA decimal(15,2)
