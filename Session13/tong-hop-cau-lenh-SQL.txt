@@ -1,0 +1,40 @@
+DDL: Định nghĩa dữ liệu
+	CREATE
+		|_DATABASE database_name;
+		|_TABLE table_name(list_columns);
+		|_PROCEDURE proc_name(list_params in/out) begin....end;
+		|_VIEW view_name AS query;
+		|_TRIGGER trg_name {before|after} {insert|update|delete} ON table_name for each row begin...end;
+		|_INDEX idx_name ON table_name(colums);
+
+	ALTER
+		|_TABLE table
+			|_ADD
+				|_CONSTRAINT const_name {check|foreign key} ....
+				|_COLUMN column_name data_type ....
+			|_CHANGE
+			|_MODIFY
+			|_DROP
+				|_CONSTRAINT const_name
+				|_COLUMN column_name
+	DROP
+		|_DATABASE database_name;
+		|_TABLE table_name;
+		|_PROCEDURE proc_name;
+		|_VIEW view_name;
+		|_TRIGGER trg_name;
+		|_INDEX idx_name;
+	
+DML: Quản lý dữ liệu
+	INSERT INTO table_name values();
+
+	UPDATE table_name SET columns_change WHERE ?
+
+	DELETE table_name WHERE ?
+
+	SELECT *|columns_name
+		JOIN
+		WHERE
+		GROUP BY
+		HAVING
+		ORDER BY
