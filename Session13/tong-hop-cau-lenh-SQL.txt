@@ -30,7 +30,7 @@ DML: Quản lý dữ liệu
 
 	UPDATE table_name SET columns_change WHERE ?
 
-	DELETE table_name WHERE ?
+	DELETE FROM table_name WHERE ?
 
 	SELECT *|columns_name
 		JOIN
