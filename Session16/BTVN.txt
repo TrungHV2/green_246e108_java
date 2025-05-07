@@ -1,0 +1,10 @@
+Tạo database trong MySQL
+Table DANHMUC
+    madm Varchar(10) Primary key
+    tendm Varchar (30)
+Table SANPHAM
+    masp Varchar(10) Primary key
+    tensp Varchar (30)
+    gia Integer
+    madm Varchar(10) Foreign key
+Viết ứng dụng JavaWeb thực hiện CRUD dữ liệu bảng SANPHAM
