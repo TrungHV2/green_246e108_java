@@ -1,0 +1,12 @@
+package com.greenacademy.model;
+
+import java.util.List;
+
+public interface Repository <T, K>{
+    List<T> findAll();
+    Pageable<T> pagination(int page, int pageSize);
+    T findById(K id);
+    T save(T t);
+    boolean update(T t);
+    boolean delete(K id);
+}
