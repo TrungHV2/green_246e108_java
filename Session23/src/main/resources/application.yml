@@ -1,0 +1,23 @@
+server:
+  port: 8181
+spring:
+  application:
+    name: Session23
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/BookStore
+    username: root
+    password: root
+  jpa:
+    properties:
+      hibernate.show_sql: true
+      hibernate.format_sql: true
+      hibernate.current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#logging:
+#  file:
+#    path: logs/
+#    name: logs/application.log
