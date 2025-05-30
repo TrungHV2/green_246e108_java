@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: Session26
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/BookStore
+    username: root
+    password: root
+  jpa:
+    properties:
+      hibernate.show_sql: true
+      hibernate.format_sql: true
+      hibernate.enable_lazy_load_no_trans: true
+      hibernate.current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+green:
+  jwt:
+    expiration: ${GREEN_JWT_EXPIRATION_MS:1800000}
+    expirationRefresh: ${GREEN_JWT_EXPIRATION_REFRESH_MS:432000000}
+    secretKey: ${GREEN_JWT_SECRET_KEY:GREENACADEMY_SECRET_KEY}
