@@ -11,19 +11,27 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@EnableCaching
 @AllArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryServiceImpl.class);
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
+    @Cacheable(value = "categories", unless = "#result == null")
     public List<CategoryResponse> findAll() {
         LOGGER.info("[START] CategoryServiceImpl findAll");
         try {
@@ -31,6 +39,11 @@ public class CategoryServiceImpl implements CategoryService {
             List<CategoryResponse> categoryResponses = categories.stream()
                     .map(category -> modelMapper.map(category, CategoryResponse.class))
                     .collect(Collectors.toList());
+            // Thủ công
+            // lưu cache
+            //redisTemplate.opsForValue().set("categories", categoryResponses);
+            // lấy từ bộ nhớ cache
+            //redisTemplate.opsForValue().get("categories");
             LOGGER.info("[END] CategoryServiceImpl findAll response={}", categoryResponses);
             return categoryResponses;
         } catch (Exception ex) {
@@ -40,6 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Cacheable(value = "categoriesFindByName", unless = "#result == null")
     public List<CategoryResponse> findByName(String name) {
         LOGGER.info("[START] CategoryServiceImpl findByName={}", name);
         try {
@@ -57,6 +71,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Cacheable(value = "category", key = "#id", unless = "#result == null")
     public CategoryResponse findById(Integer id) {
         LOGGER.info("[START] CategoryServiceImpl findById id={}", id);
         try {
@@ -72,6 +87,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @CacheEvict(value = {"categories", "categoriesFindByName", "category"}, allEntries = true)
     public CategoryResponse save(CategoryRequest category) {
         LOGGER.info("[START] CategoryServiceImpl save request={}", category);
         try {
@@ -88,6 +104,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @CacheEvict(value = {"categories", "categoriesFindByName"}, allEntries = true)
     public boolean delete(Integer id) {
         LOGGER.info("[START] CategoryServiceImpl delete id={}", id);
         try {
